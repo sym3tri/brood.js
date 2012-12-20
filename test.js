@@ -34,6 +34,7 @@ var Rect = Shape.spawn({
     //
     // Essentially equivalent to
     // Object.getPrototypeOf(Rect).init.call(this, color);
+    // TODO: should multilevel method overrides even be allowed?
     Rect.origin.init.call(this, color);
     this.name = 'Rect';
     this.length = length;
@@ -47,6 +48,7 @@ Rect.init(2, 3, 'blue');
 Rect.describe();
 
 
+// A square is a rectangle but slightly different.
 var Square = Rect.spawn({
   init: function (sideLength, color) {
     Square.origin.init.call(this, sideLength, sideLength, color);
@@ -56,13 +58,14 @@ var Square = Rect.spawn({
 Square.init(4, 'green');
 Square.describe();
 
-
+// a circle is its own shape
 var Circle = Shape.spawn({
   init: function (radius, color) {
-    Circle.origin.init.call(this, color);
+    Circle.origin.init.call(this, color);  // call origin's constructor
     this.radius = radius;
     this.name = 'Circle';
   },
+  // override getarea()
   getArea: function () {
     return this.radius * this.radius * Math.PI;
   }

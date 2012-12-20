@@ -85,6 +85,8 @@ var brood = (function () {
             });
           }
 
+          // TODO: auto-call the init() function before returning?
+
           newObj = Object.create(this, propsObject);
           return newObj;
         }
